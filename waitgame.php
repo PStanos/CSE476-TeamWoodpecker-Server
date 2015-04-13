@@ -2,7 +2,13 @@
 require_once "db.inc.php";
 
 $pdo = pdo_connect();
-$playerid = $_GET['pid'];
+$playerid = $_GET['user'];
+$pass = $_GET['pw'];
+
+if(login($playerid, $pass) != 'True'){
+	echo '<game status="no" msg="Login Fail" />';
+	exit;
+}
 
 $pidQ = $pdo->quote($playerid);
 $query = "SELECT Player1, Xml, Player1Turn FROM FlockingGame WHERE Player1= $pidQ";

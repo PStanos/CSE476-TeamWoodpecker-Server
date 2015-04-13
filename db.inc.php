@@ -11,3 +11,19 @@ function pdo_connect() {
 		die( "Unable to select database");
 	}
 }
+
+function login($user, $pass){
+	$pdo = pdo_connect();
+
+	$userQ = $pdo->quote($user);
+	$query = "SELECT User, Password FROM FlockingUser where user=$userQ";
+
+	$rows = $pdo->query($query);
+	if($row = $rows->fetch()){
+		if($row['Password'] != $pass){
+			return 'Pass Error';
+		}
+		return 'True';
+	}
+	return 'User Error';
+}
