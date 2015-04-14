@@ -27,5 +27,10 @@ function processXml($xmltext, $user){
 	$query = "UPDATE FlockingGame SET Xml=$xmltextQ WHERE Player1=$userQ OR Player2=$userQ";
 
 	$result = $pdo->query($query);
+	if($result == false){
+		echo "<game status='no' msg='Update error' />";
+		exit;
+	}
+	echo '<game status="yes" />';
 
 }
