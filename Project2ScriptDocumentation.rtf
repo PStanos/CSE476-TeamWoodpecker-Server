@@ -68,7 +68,7 @@ updategame.php:\
 		'<game status="yes" />' - Game successfully updated\
 \
 	Description:\
-		Updates the game XML to whatever is posted.  Also toggles Player1Turn in database.  Meant to be used when a turn is 		done		\
+		Updates the game XML to whatever is posted.  Resets DataRead boolean, and updates who has sent most recent data\
 \
 waitgame.php:\
 	GET Inputs:\
@@ -78,11 +78,11 @@ waitgame.php:\
 		'<game status="no" msg="Login Fail" />' - Login failure\
 		'<?xml version="1.0" encoding="UTF-8" ?> <game status="no" msg="Not your turn" />'  -Continue waiting, not your turn\
 		 '<?xml version="1.0" encoding="UTF-8" ?> <game status="no" msg="Game not found" />' -Game not found\
+		\'91<game status=\'93no\'94 msg=\'93Data already received\'94 />\'92 - Data has already been read\
 		Game XML - Serialized data, meant as \'93Yes, its your turn, heres the updated game\'94.\
-		!! Note-  I stopped putting the <?xml \'85 > tag on everything.  If this is a problem, let me know, and I\'92ll add them !!\
 \
 	Description:\
-		Used to check if it that player\'92s turn.  Checks the player\'92s number vs whether it is player1\'92s turn or not in DB.\
+		Used to check if it that player\'92s turn.  Checks the player\'92s ID vs who sent the most recent data.  When the data has been 		read, it sets a flag to indicate it has been received.\
 \
 \
 findplayer.php:\
