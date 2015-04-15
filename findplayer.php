@@ -1,22 +1,15 @@
 <?php
 require_once "db.inc.php";
+function findplayer($user){
 
-$user = $_GET['user'];
-$pass = $_GET['pw'];
+	$query = "SELECT User FROM FlockingLobby";
+	$pdo = pdo_connect();
 
-if(login($user,$pass) != 'True'){
-	echo '<game status="no" msg="Login Fail" />';
-	exit;
-}
-
-$query = "SELECT User FROM FlockingLobby";
-$pdo = pdo_connect();
-
-$result = $pdo->query($query);
-if($row = $result->fetch()){
-	if($row['User'] != ""){
-		echo '<game status="yes" msg="Match found" />';
-		exit;
+	$result = $pdo->query($query);
+	if($row = $result->fetch()){
+		if($row['User'] != $user){
+			return $row['User'];
+		}
 	}
+	return false;
 }
-echo '<game status="no" msg="No match found" />';
