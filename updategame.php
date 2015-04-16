@@ -26,7 +26,7 @@ function processXml($xmltext, $user, $next){
 	$xmltextQ = $pdo->quote($xmltext);
 	$userQ = $pdo->quote($user);
 	$nextQ = $pdo->quote($next);
-	$query = "UPDATE FlockingGame SET Xml=$xmltextQ, DataRead = 0, WhosNext = $nextQ WHERE Player1=$userQ OR Player2=$userQ";
+	$query = "UPDATE FlockingGame SET Xml=$xmltextQ, DataRead = 0, Uploaded = $userQ WHERE Player1=$userQ OR Player2=$userQ";
 
 	$result = $pdo->query($query);
 	if($result == false){

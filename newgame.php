@@ -12,7 +12,7 @@ function newgame($p1, $p2){
 		return false;
 	}*/
 
-	$query = "INSERT INTO FlockingGame (Player1, Player2,DataRead, WhosNext) VALUES ($p1Q, $p2Q, 0, $p1Q)";
+	$query = "INSERT INTO FlockingGame (Player1, Player2,DataRead, Uploaded) VALUES ($p1Q, $p2Q, 0, $p1Q)";
 
 	$rows = $pdo->query($query);
 	if($rows == false){
