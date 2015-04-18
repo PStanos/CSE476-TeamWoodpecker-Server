@@ -1,6 +1,7 @@
 <?php
 require_once "db.inc.php";
 
+//Deletes user from lobby
 function deletelobby($user){
 	$pdo = pdo_connect();
 	$userq = $pdo->quote($user);

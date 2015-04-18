@@ -42,7 +42,7 @@ newgame.php:\
 		\'91<game status='yes' />\'92 - Successful new game creation\
 \
 	Description:\
-		Creates new game with two users given.  Need to talk about modifying this, since it doesn\'92t seem practical at the 		moment for our purpose.\
+		Creates new game with two users given.  This is only a function that lobbyscript.php uses.\
 \
 newuser.php:\
 	GET Inputs:\
@@ -79,10 +79,11 @@ waitgame.php:\
 		'<?xml version="1.0" encoding="UTF-8" ?> <game status="no" msg="Not your turn" />'  -Continue waiting, not your turn\
 		 '<?xml version="1.0" encoding="UTF-8" ?> <game status="no" msg="Game not found" />' -Game not found\
 		\'91<game status=\'93no\'94 msg=\'93Data already received\'94 />\'92 - Data has already been read\
+		'<game status="no" msg="Timeout" />' - Game has timed out\
 		Game XML - Serialized data, meant as \'93Yes, its your turn, heres the updated game\'94.\
 \
 	Description:\
-		Used to check if it that player\'92s turn.  Checks the player\'92s ID vs who sent the most recent data.  When the data has been 		read, it sets a flag to indicate it has been received.\
+		Used to check if it that player\'92s turn.  Checks the player\'92s ID vs who sent the most recent data, and whether the most 		recent data has been read or not. When the data has been read, it sets a flag to indicate it has been received.  This also 		handles the timeout, by checking the Sleep time (last upload) vs the current time.\
 \
 \
 findplayer.php:\
@@ -106,16 +107,13 @@ joinlobby.php:\
 \
 	Description:\
 		Joins lobby, meant to be used if no user exists.  Possible to merge this with findplayer.php 		\
-selecting.php:\
+fetchxml.php:\
 	GET Inputs:\
 		\'91user\'92 - user name\
 		\'91pw\'92 - password of user\
 	Outputs:\
-		'<game status="no" msg="Login Fail" />' - Login Failure\
-		'<game status="yes" msg="Selecting" />' - Yes, the game is in bird selection mode\
-		'<game status="no" msg="Not Selecting" />' -No, the game is in placement mode\
-		\'91<game status="no" msg="Game not found" />' - Game not found\
-	\
+		\'91<game status=\'93no msg=\'93Login Fail\'94 />\'92  - Login failure\
+		'<game status="no" msg="Game not found" />' - Game doesn\'92t exist\
+		Game XML - Successful fetch of data\
 	Description:\
-		Checks whether the game status is selecting or not.  (Other options are placement, game over status, etc)\
-}
+		This script is meant to blindly fetch your game data in case of a game crash or server connection failure.  It does not set 		any DataRead bits, which is what I mean by \'93blindly\'94.}
